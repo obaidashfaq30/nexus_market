@@ -8,6 +8,7 @@ gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 gem "bcrypt", "~> 3.1.7"
+gem "acts_as_tenant", "~> 1.0.1"
 
 group :development, :test do
   gem "dotenv-rails", "~> 2.1"
@@ -18,6 +19,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "rubocop", require: false
   gem "annotate", "~> 3.2.0"
+  gem "pry"
 end
 
 group :development do

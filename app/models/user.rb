@@ -12,6 +12,7 @@
 #  tenant_id          :bigint           not null
 #
 class User < ApplicationRecord
+  acts_as_tenant(:tenant)
   has_secure_password
 
   # --------------------------------------------------------------------------------------------------------
