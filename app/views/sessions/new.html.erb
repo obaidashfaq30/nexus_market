@@ -1,0 +1,15 @@
+<h1 style="text-align:center;">Login</h1>
+
+<%= form_with url: login_path, local: true do |f| %>
+  <div style="margin-bottom: 15px;">
+    <%= f.label :email %>
+    <%= f.email_field :email, style: "width:100%; padding:8px;" %>
+  </div>
+
+  <div style="margin-bottom: 15px;">
+    <%= f.label :password %>
+    <%= f.password_field :password, style: "width:100%; padding:8px;" %>
+  </div>
+
+  <%= f.submit "Login", style: "padding:10px 20px; background:#007bff; color:white; border:none; border-radius:4px;" %>
+<% end %>

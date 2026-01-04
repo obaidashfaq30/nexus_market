@@ -1,5 +1,6 @@
 module Admin
   class ProductsController < ApplicationController
+    before_action :require_login
     before_action :set_tenant
     before_action :set_product, only: [:edit, :show, :destroy, :update]
 

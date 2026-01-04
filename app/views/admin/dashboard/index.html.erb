@@ -5,11 +5,10 @@
 <ul>
   <% @tenants.each do |tenant| %>
     <li>
-      <%= tenant.name %>
+      <%= link_to tenant.name, admin_tenant_path(tenant) %>
     </li>
   <% end %>
 </ul>
 
 <p>Total Revenue: <%= @total_revenue %></p>
 <p>Platform Fees: <%= @platform_fees %></p>
-

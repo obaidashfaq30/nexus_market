@@ -16,6 +16,18 @@
     <%= stylesheet_link_tag "application" %>
   </head>
 
+  <nav style="padding:10px; border-bottom:1px solid #ddd;">
+    <% if current_user %>
+      <span>
+        Logged in as <strong><%= current_user.email %></strong>
+      </span>
+
+      <%= form_with url: logout_path, method: :delete, local: true, style: "display:inline;" do %>
+        <%= submit_tag "Logout", style: "margin-left:10px;" %>
+      <% end %>
+    <% end %>
+  </nav>
+
   <body>
     <%= yield %>
   </body>

@@ -35,3 +35,12 @@ end
 
 puts "Created 2 e-commerce tenants with products"
 puts "Seeding complete!"
+
+
+ActsAsTenant.with_tenant(shop1) do
+  User.create!(name: "Owner Alpha", email: "owner_alpha@test.com", password: "password", role: :owner, tenant: shop1)
+  User.create!(name: "Customer Alpha", email: "customer_alpha@test.com", password: "password", role: :customer, tenant: shop1)
+end
+
+platform = Tenant.create!(name: "Platform")
+User.create!(name: "Nexus Markets Admin", email: "admin@test.com", password: "password", role: :admin, tenant: platform)
