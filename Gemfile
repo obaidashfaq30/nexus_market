@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '3.2.2'
+
 gem 'acts_as_tenant', '~> 1.0.1'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', require: false

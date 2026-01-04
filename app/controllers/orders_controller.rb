@@ -13,8 +13,6 @@ class OrdersController < ApplicationController
 
   def create
     ActsAsTenant.with_tenant(@shop) do
-      @order = @shop.orders.build(user: current_user, total_cents: 0, status: :pending)
-
       order_creation_service = ::OrderCreationService.new(@shop, current_user, params[:order_items])
       @order = order_creation_service.call
 

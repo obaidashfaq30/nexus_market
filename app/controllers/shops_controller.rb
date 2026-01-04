@@ -8,7 +8,7 @@ class ShopsController < ApplicationController
   def show
     @shop = Tenant.find(params[:tenant_id])
     ActsAsTenant.with_tenant(@shop) do
-      @products = Product.all
+      @products = Product.in_stock
     end
   end
 end

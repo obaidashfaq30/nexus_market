@@ -33,14 +33,10 @@ RSpec.describe 'Checkout Flow', type: :model do
 
   context 'Checkout and Ledger' do
     it 'allows a customer to checkout and logs a platform fee' do
-      order = Order.create!(tenant: tenant_a, user: customer_a, total_cents: product_a.price * 100, status: :pending)
-      OrderItem.create!(order: order, product: product_a, quantity: 1, price: product_a.price)
+      order_items = [{ product_id: product_a.id, quantity: 1 }]
+      order = OrderCreationService.new(tenant_a, customer_a, order_items).call
 
-      # Decrement stock with locking
-      product_a.decrement_stock!(1)
-
-      # Create platform fee in central ledger (outside tenant scope)
-      Ledger.create!(order: order, total_amount: (order.total_cents * PLATFORM_FEE_PERCENTAGE).to_i)
+      expect(order).not_to be_nil
 
       product_a.reload
       order.reload
