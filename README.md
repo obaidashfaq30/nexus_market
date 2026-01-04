@@ -14,7 +14,7 @@ Customers are scoped to a single shop to maintain tenant isolation. Cross-shop o
 
 2. **Installation**:
    ```bash
-   git clone 
+   git clone https://github.com/obaidashfaq30/nexus_market.git
    cd nexus_market
    bundle install
    ```
