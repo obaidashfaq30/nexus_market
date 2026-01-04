@@ -1,1 +1,29 @@
-orders
+<h1>Orders for <%= ActsAsTenant.current_tenant.name %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Customer</th>
+      <th>Total</th>
+      <th>Status</th>
+      <th>Created At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.user.name %></td>
+        <td><%= number_to_currency(order.total_cents / 100.0) %></td>
+        <td><%= order.status.titleize %></td>
+        <td><%= order.created_at.strftime("%b %d, %Y %H:%M") %></td>
+        <td>
+          <%= link_to "View", admin_tenant_order_path(ActsAsTenant.current_tenant, order) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

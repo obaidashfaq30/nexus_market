@@ -1,0 +1,13 @@
+<h1>Available Shops</h1>
+
+<p>Welcome, <%= current_user.name %>! Please select a shop to browse products.</p>
+
+<div class="shops-container">
+  <% @shops.each do |shop| %>
+    <div class="shop-card">
+      <h2>
+        <%= link_to shop.name, shop_path(shop) %>
+      </h2>
+    </div>
+  <% end %>
+</div>

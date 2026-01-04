@@ -5,11 +5,12 @@ module Admin
     before_action :set_tenant
 
     def index
-      @orders = Order.all
+      @orders = Order.includes(:user).order(created_at: :desc)
     end
 
     def show
       @order = Order.find(params[:id])
+      @platform_fee = Ledger.find_by(order: @order)&.total_amount || 0
     end
 
     private

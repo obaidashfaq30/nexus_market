@@ -39,8 +39,13 @@ class SessionsController < ApplicationController
     case user.role
     when 'admin'
       admin_tenants_path
-    when 'owner', 'customer'
+    when 'owner'
       admin_tenant_path(user.tenant)
+    when 'customer'
+      
+      binding.pry
+      
+      shops_path
     end
   end
 end

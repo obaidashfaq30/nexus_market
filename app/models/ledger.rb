@@ -19,5 +19,5 @@ class Ledger < ApplicationRecord
   # --------------------------------------------------------------------------------------------------------
   # VALIDATIONS
   # --------------------------------------------------------------------------------------------------------
-  validates :amount_cents, presence: true
+  validates :total_amount, presence: true
 end

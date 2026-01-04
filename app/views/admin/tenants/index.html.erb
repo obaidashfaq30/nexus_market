@@ -1,21 +1,22 @@
 <h1 style="text-align:center; margin-bottom: 20px;">Tenants</h1>
 
+<div style="max-width: 500px; margin: 20px auto;">
+  <h2>Platform Metrics</h2>
+  <p>Total Revenue: <%= number_to_currency(@total_revenue) %></p>
+  <p>Platform Fees: <%= number_to_currency(@platform_fees) %></p>
+</div>
+
+<div style="text-align: center; margin-top: 10px;">
+  <%= link_to "Create New Tenant", new_admin_tenant_path,
+              style: "padding: 6px 12px; background-color: #007bff; color: white; text-decoration: none; border-radius: 3px;" %>
+</div>
+
 <ul style="max-width: 500px; margin: 0 auto; padding: 0; list-style: none;">
   <% @tenants.each do |tenant| %>
-    <li style="
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 15px;
-      border-bottom: 1px solid #ddd;
-    ">
-      <span style="font-weight: bold;"><%= tenant.name %></span>
+    <li style="display: flex; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #ddd;">
+      <span><%= tenant.name %></span>
       <%= link_to "View", admin_tenant_products_path(tenant),
-                  style: "padding: 5px 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px;" %>
+                  style: "padding: 4px 8px; background-color: #28a745; color: white; text-decoration: none; border-radius: 3px;" %>
     </li>
   <% end %>
 </ul>
-
-<p>
-  <%= link_to "Create New Tenant", new_admin_tenant_path %>
-</p>

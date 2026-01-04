@@ -1,0 +1,14 @@
+<h1><%= @shop.name %> - Products</h1>
+
+<% @products.each do |product| %>
+  <div class="product-card">
+    <h2><%= product.name %></h2>
+    <p>Price: <%= number_to_currency(product.price) %></p>
+    <p>Stock: <%= product.stock %></p>
+    <%= form_with url: shop_orders_path(@shop), method: :post, local: true do |f| %>
+      <%= number_field_tag "order_items[][quantity]", 0, min: 0 %>
+      <%= hidden_field_tag "order_items[][product_id]", product.id %>
+      <%= f.submit "Add to Order" %>
+    <% end %>
+  </div>
+<% end %>

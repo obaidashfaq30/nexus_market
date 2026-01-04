@@ -2,7 +2,11 @@
 
 module Admin
   class TenantsController < ApplicationController
+    skip_before_action :set_tenant, only: %i[index]
+
     def index
+      @total_revenue = Order.sum(:total_cents)
+      @platform_fees = Ledger.sum(:total_amount)
       @tenants = Tenant.all
     end
 

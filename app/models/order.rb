@@ -10,6 +10,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  tenant_id   :bigint           not null
+#  user_id     :bigint           not null
 #
 class Order < ApplicationRecord
   acts_as_tenant(:tenant)
@@ -19,7 +20,7 @@ class Order < ApplicationRecord
   # --------------------------------------------------------------------------------------------------------
   belongs_to :tenant
   has_many :order_items, dependent: :destroy
-  has_many :order_items, dependent: :destroy
+  belongs_to :user
 
   # --------------------------------------------------------------------------------------------------------
   # ENUMS
@@ -29,5 +30,5 @@ class Order < ApplicationRecord
   # --------------------------------------------------------------------------------------------------------
   # VALIDATIONS
   # --------------------------------------------------------------------------------------------------------
-  validates :total_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :total_cents, presence: true, numericality: { greater_than_or_equal_to: 0 }
 end
