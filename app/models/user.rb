@@ -2,14 +2,14 @@
 #
 # Table name: users
 #
-#  id                 :bigint           not null, primary key
-#  email              :string           not null
-#  encrypted_password :string           not null
-#  name               :string           not null
-#  role               :integer          default("owner")
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  tenant_id          :bigint           not null
+#  id              :bigint           not null, primary key
+#  email           :string           not null
+#  name            :string           not null
+#  password_digest :string           not null
+#  role            :integer          default("owner")
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  tenant_id       :bigint           not null
 #
 class User < ApplicationRecord
   acts_as_tenant(:tenant)

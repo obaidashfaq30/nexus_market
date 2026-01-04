@@ -1,9 +1,37 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+puts "Seeding database..."
+
+# Clean slate
+OrderItem.delete_all
+Order.delete_all
+Product.delete_all
+Tenant.delete_all
+
+# --------------------------
+# 2 empty tenants (no products)
+# --------------------------
+empty1 = Tenant.create!(name: "Empty Shop One")
+empty2 = Tenant.create!(name: "Empty Shop Two")
+puts "✔ Created 2 empty tenants"
+
+# --------------------------
+# 2 e-commerce tenants with products
+# --------------------------
+shop1 = Tenant.create!(name: "Alpha Apparel")
+shop2 = Tenant.create!(name: "Gadget World")
+
+# Add products for shop1 (clothing vertical)
+ActsAsTenant.with_tenant(shop1) do
+  Product.create!(name: "Basic T-Shirt", description: "100% Cotton", price: 19.99, stock: 50, tenant: shop1)
+  Product.create!(name: "Jeans", description: "Slim Fit", price: 49.99, stock: 30, tenant: shop1)
+  Product.create!(name: "Hoodie", description: "Warm and comfy", price: 39.99, stock: 20, tenant: shop1)
+end
+
+# Add products for shop2 (electronics vertical)
+ActsAsTenant.with_tenant(shop2) do
+  Product.create!(name: "Wireless Earbuds", description: "Bluetooth 5.0", price: 79.99, stock: 15, tenant: shop2)
+  Product.create!(name: "Smartwatch", description: "Heart rate monitor", price: 129.99, stock: 10, tenant: shop2)
+  Product.create!(name: "USB-C Hub", description: "5-in-1 adapter", price: 29.99, stock: 25, tenant: shop2)
+end
+
+puts "Created 2 e-commerce tenants with products"
+puts "Seeding complete!"

@@ -11,4 +11,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  namespace :admin do
+    resources :tenants, only: [:new, :create, :index, :show] do
+      resources :products
+      resources :orders, only: [:index, :show]
+    end
+    get "dashboard", to: "dashboard#index"
+  end
 end

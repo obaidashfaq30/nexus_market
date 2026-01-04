@@ -63,7 +63,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_04_054143) do
     t.bigint "tenant_id", null: false
     t.string "name", null: false
     t.string "email", null: false
-    t.string "encrypted_password", null: false
+    t.string "password_digest", null: false
     t.integer "role", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

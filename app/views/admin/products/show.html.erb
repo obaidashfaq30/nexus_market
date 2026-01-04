@@ -1,0 +1,12 @@
+<h1>Product: <%= @product.name %></h1>
+
+<div class="product-details">
+  <p><strong>Description:</strong> <%= @product.description %></p>
+  <p><strong>Price:</strong> <%= number_to_currency(@product.price) %></p>
+  <p><strong>Stock:</strong> <%= @product.stock %> items</p>
+  
+  <div class="actions">
+    <%= link_to 'Edit', edit_admin_tenant_product_path(ActsAsTenant.current_tenant, @product), class: 'btn btn-edit' %>
+    <%= link_to 'Back to Products', admin_tenant_products_path(ActsAsTenant.current_tenant), class: 'btn btn-secondary' %>
+  </div>
+</div>

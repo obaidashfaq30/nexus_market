@@ -1,0 +1,29 @@
+<h1 class="page-title"><%= ActsAsTenant.current_tenant.name %> - Products</h1>
+
+<nav class="navigation">
+  <%= link_to "Products", admin_tenant_products_path(ActsAsTenant.current_tenant), class: 'nav-link' %>
+  <%= link_to "Orders", admin_tenant_orders_path(ActsAsTenant.current_tenant), class: 'nav-link' %>
+</nav>
+
+<%= link_to "New Product", new_admin_tenant_product_path(ActsAsTenant.current_tenant), class: 'nav-link' %>
+
+<div class="products-container">
+  <% @products.each do |product| %>
+<div class="product-card">
+      <h2 class="product-name">
+        <%= link_to product.name, admin_tenant_product_path(ActsAsTenant.current_tenant, product) %>
+      </h2>
+      <p class="product-description"><%= product.description %></p>
+      <p class="product-price">Price: <strong><%= number_to_currency(product.price) %></strong></p>
+      <p class="product-stock">Stock: <%= product.stock %> items</p>
+      
+      <!-- Links for CRUD actions -->
+      <div class="product-actions">
+        <%= link_to 'Edit', edit_admin_tenant_product_path(ActsAsTenant.current_tenant, product), class: 'btn btn-edit' %>
+        <%= form_with url: admin_tenant_product_path(ActsAsTenant.current_tenant, product), method: :delete, local: true do |form| %>
+          <%= form.submit 'Delete', class: 'btn btn-delete', data: { confirm: 'Are you sure you want to delete this product?' } %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

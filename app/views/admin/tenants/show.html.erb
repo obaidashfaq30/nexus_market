@@ -1,0 +1,19 @@
+<!-- app/views/admin/tenants/show.html.erb -->
+<h1><%= @tenant.name %></h1>
+
+<nav>
+  <%= link_to "Products",
+      admin_tenant_products_path(@tenant) %> |
+  <%= link_to "Orders",
+      admin_tenant_orders_path(@tenant) %>
+</nav>
+
+<br>
+
+<p>
+  Created at: <%= @tenant.created_at.strftime("%Y-%m-%d") %>
+</p>
+
+<br>
+
+<%= link_to "Back to Tenants", admin_tenants_path %>

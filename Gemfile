@@ -9,6 +9,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 gem "bcrypt", "~> 3.1.7"
 gem "acts_as_tenant", "~> 1.0.1"
+gem "rails-ujs"
 
 group :development, :test do
   gem "dotenv-rails", "~> 2.1"

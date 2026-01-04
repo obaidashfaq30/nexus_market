@@ -1,0 +1,17 @@
+<h1 style="text-align:center; margin-bottom: 20px;">Tenants</h1>
+
+<ul style="max-width: 500px; margin: 0 auto; padding: 0; list-style: none;">
+  <% @tenants.each do |tenant| %>
+    <li style="
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+      border-bottom: 1px solid #ddd;
+    ">
+      <span style="font-weight: bold;"><%= tenant.name %></span>
+      <%= link_to "View", admin_tenant_path(tenant),
+                  style: "padding: 5px 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px;" %>
+    </li>
+  <% end %>
+</ul>
