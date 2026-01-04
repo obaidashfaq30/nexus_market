@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
   def dashboard_path_for(user)
     case user.role
     when "admin"
-      admin_dashboard_path
+      admin_tenants_path
     when "owner", "customer"
       admin_tenant_path(user.tenant)
     end

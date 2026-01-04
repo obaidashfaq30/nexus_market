@@ -1,0 +1,24 @@
+<h1>Create New Tenant</h1>
+
+<%= form_with model: @tenant, url: admin_tenants_path, local: true do |form| %>
+  <% if @tenant.errors.any? %>
+    <div>
+      <h3><%= pluralize(@tenant.errors.count, "error") %> prevented this tenant from being saved:</h3>
+      <ul>
+        <% @tenant.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </div>
+
+  <div style="margin-top: 15px;">
+    <%= form.submit "Create Tenant" %>
+    <%= link_to "Back", admin_tenants_path %>
+  </div>
+<% end %>

@@ -7,6 +7,10 @@ class Admin::TenantsController < ApplicationController
     @tenant = Tenant.find(params[:id])
   end
 
+  def new
+    @tenant = Tenant.new
+  end
+
   def create
     @tenant = Tenant.new(tenant_params)
 

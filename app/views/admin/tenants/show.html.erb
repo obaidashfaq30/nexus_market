@@ -2,10 +2,8 @@
 <h1><%= @tenant.name %></h1>
 
 <nav>
-  <%= link_to "Products",
-      admin_tenant_products_path(@tenant) %> |
-  <%= link_to "Orders",
-      admin_tenant_orders_path(@tenant) %>
+  <%= link_to "Products", admin_tenant_products_path(@tenant) %> |
+  <%= link_to "Orders", admin_tenant_orders_path(@tenant) %>
 </nav>
 
 <br>
