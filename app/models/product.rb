@@ -24,6 +24,14 @@ class Product < ApplicationRecord
   # --------------------------------------------------------------------------------------------------------
   # VALIDATIONS
   # --------------------------------------------------------------------------------------------------------
-  validates :name, presence: true
+  validates :name, :price, presence: true
   validates :stock, numericality: { greater_than_or_equal_to: 0 }
+
+  def decrement_stock!(quantity)
+    with_lock do
+      raise 'Not enough stock' if stock < quantity
+
+      update!(stock: stock - quantity)
+    end
+  end
 end

@@ -15,10 +15,10 @@ FactoryBot.define do
   factory :product do
     name { "Product #{SecureRandom.hex(4)}" }
     price { 10.0 }
-    stock { 100 }
-    description { "A description for the product." }
+    stock { rand(1..10) }
 
-    # Ensure that tenant is associated with the product
-    tenant { create(:tenant) }
+    description { 'A description for the product.' }
+
+    association :tenant
   end
 end

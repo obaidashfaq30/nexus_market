@@ -20,13 +20,7 @@ class OrdersController < ApplicationController
         product = Product.lock.find(item_params[:product_id]) # Pessimistic lock
         quantity = item_params[:quantity].to_i
 
-        if product.stock < quantity
-          @order.errors.add(:base, "Not enough stock for #{product.name}")
-          render :new, status: :unprocessable_entity and return
-        end
-
-        product.stock -= quantity
-        product.save!
+        product.decrement_stock!(quantity)
 
         @order.order_items.build(product: product, quantity: quantity, price: product.price)
         @order.total_cents += (product.price * quantity * 100).to_i
@@ -41,7 +35,6 @@ class OrdersController < ApplicationController
 
         redirect_to shop_order_path(@shop, @order), notice: 'Order placed successfully!'
       else
-        binding.pry
         render :new, status: :unprocessable_entity
       end
     end

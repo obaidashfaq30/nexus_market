@@ -42,9 +42,6 @@ class SessionsController < ApplicationController
     when 'owner'
       admin_tenant_path(user.tenant)
     when 'customer'
-      
-      binding.pry
-      
       shops_path
     end
   end

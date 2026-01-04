@@ -16,6 +16,9 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   Enabled: true
 
+Style/Metrics/BlockLength:
+  Max: 100
+
 # Keep things readable
 Layout/LineLength:
   Max: 120
