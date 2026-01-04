@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Admin
   class ProductsController < ApplicationController
     before_action :require_login
     before_action :set_tenant
-    before_action :set_product, only: [:edit, :show, :destroy, :update]
+    before_action :set_product, only: %i[edit show destroy update]
 
     def index
       @products = Product.all
@@ -20,7 +22,7 @@ module Admin
       @product = Product.new(product_params)
 
       if @product.save
-        redirect_to admin_tenant_products_path(ActsAsTenant.current_tenant), notice: "Product created successfully."
+        redirect_to admin_tenant_products_path(ActsAsTenant.current_tenant), notice: 'Product created successfully.'
       else
         render :new
       end
@@ -28,7 +30,7 @@ module Admin
 
     def update
       if @product.update(product_params)
-        redirect_to admin_tenant_products_path(ActsAsTenant.current_tenant), notice: "Product updated successfully."
+        redirect_to admin_tenant_products_path(ActsAsTenant.current_tenant), notice: 'Product updated successfully.'
       else
         render :edit
       end
@@ -36,11 +38,10 @@ module Admin
 
     def destroy
       @product.destroy
-      redirect_to admin_tenant_products_path(ActsAsTenant.current_tenant), notice: "Product deleted successfully."
+      redirect_to admin_tenant_products_path(ActsAsTenant.current_tenant), notice: 'Product deleted successfully.'
     end
 
     private
-
 
     def set_product
       @product = Product.find(params[:id])

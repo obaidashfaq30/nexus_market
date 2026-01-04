@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   allow_browser versions: :modern
   helper_method :current_user
@@ -12,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    redirect_to login_path, alert: "Please login first" unless current_user
+    redirect_to login_path, alert: 'Please login first' unless current_user
   end
 
   def set_tenant
