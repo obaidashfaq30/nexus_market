@@ -14,11 +14,16 @@ class OrdersController < ApplicationController
   def create
     ActsAsTenant.with_tenant(@shop) do
       order_creation_service = ::OrderCreationService.new(@shop, current_user, params[:order_items])
-      @order = order_creation_service.call
+      begin
+        @order = order_creation_service.call
 
-      if @order.present?
-        redirect_to shop_order_path(@shop, @order), notice: 'Order placed successfully!'
-      else
+        if @order.present?
+          redirect_to shop_order_path(@shop, @order), notice: 'Order placed successfully!'
+        else
+          render :new, status: :unprocessable_entity
+        end
+      rescue InsufficientStockError => e
+        flash.now[:alert] = e.message
         render :new, status: :unprocessable_entity
       end
     end

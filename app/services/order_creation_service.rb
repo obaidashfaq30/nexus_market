@@ -21,7 +21,7 @@ class OrderCreationService
 
       # Return the successfully created order
       @order
-    rescue ActiveRecord::RecordInvalid, StandardError => e
+    rescue ActiveRecord::RecordInvalid => e
       # Transaction will automatically rollback on exceptions
       Rails.logger.error("Order creation failed: #{e.message}")
       nil

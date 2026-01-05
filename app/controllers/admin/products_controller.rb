@@ -5,6 +5,7 @@ module Admin
     before_action :require_login
     before_action :set_tenant
     before_action :set_product, only: %i[edit show destroy update]
+    before_action :ensure_tenant_membership
 
     def index
       @products = Product.all

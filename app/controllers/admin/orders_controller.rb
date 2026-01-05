@@ -4,6 +4,7 @@ module Admin
   class OrdersController < ApplicationController
     before_action :require_login
     before_action :set_tenant
+    before_action :ensure_tenant_membership
 
     def index
       @orders = Order.includes(:user).order(created_at: :desc)

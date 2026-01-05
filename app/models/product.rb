@@ -37,7 +37,7 @@ class Product < ApplicationRecord
   # --------------------------------------------------------------------------------------------------------
   def decrement_stock!(quantity)
     with_lock do
-      raise 'Not enough stock' if stock < quantity
+      raise InsufficientStockError, 'Not enough stock' if stock < quantity
 
       update!(stock: stock - quantity)
     end

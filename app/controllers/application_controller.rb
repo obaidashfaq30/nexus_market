@@ -17,6 +17,17 @@ class ApplicationController < ActionController::Base
     redirect_to login_path, alert: 'Please login first' unless current_user
   end
 
+  def ensure_tenant_membership
+    return if current_user.nil?
+
+    # Allow platform admins to bypass tenant restrictions
+    return if current_user.admin?
+
+    unless ActsAsTenant.current_tenant && current_user.tenant_id == ActsAsTenant.current_tenant.id
+      redirect_to admin_tenants_path, alert: 'You are not authorized to access this tenant.'
+    end
+  end
+
   def set_tenant
     return unless params[:id]
 

@@ -57,9 +57,10 @@ RSpec.describe 'Checkout Flow', type: :model do
         Thread.new do
           ActsAsTenant.current_tenant = tenant_a
           begin
-            product_a.decrement_stock!(1)
+            order_items = [{ product_id: product_a.id, quantity: 1 }]
+            OrderCreationService.new(tenant_a, customer_a, order_items).call
           rescue => e
-            exceptions << e.message
+            exceptions << e.class.name + ': ' + e.message
           end
         end
       end
@@ -68,7 +69,7 @@ RSpec.describe 'Checkout Flow', type: :model do
       product_a.reload
 
       expect(product_a.stock).to eq(0)
-      expect(exceptions).to include('Not enough stock')
+      expect(exceptions.any? { |e| e.include?('Not enough stock') }).to be true
       expect(exceptions.size).to eq(1) # Only one customer fails
     end
   end
