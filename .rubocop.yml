@@ -1,3 +1,6 @@
+require:
+  - rubocop-rails
+
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3.2
@@ -16,7 +19,7 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   Enabled: true
 
-Style/Metrics/BlockLength:
+Metrics/BlockLength:
   Max: 100
 
 # Keep things readable

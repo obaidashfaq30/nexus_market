@@ -6,13 +6,13 @@ module Admin
     skip_before_action :set_tenant, only: %i[index]
 
     def index
-        # Compute global metrics outside of tenant scoping
-        ActsAsTenant.without_tenant do
-          @total_revenue = Order.sum(:total_cents)
-          @platform_fees = Ledger.sum(:total_amount)
-        end
+      # Compute global metrics outside of tenant scoping
+      ActsAsTenant.without_tenant do
+        @total_revenue = Order.sum(:total_cents)
+        @platform_fees = Ledger.sum(:total_amount)
+      end
 
-        @tenants = Tenant.all
+      @tenants = Tenant.all
     end
 
     def show

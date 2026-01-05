@@ -4,6 +4,10 @@ class OrdersController < ApplicationController
   before_action :set_shop
   skip_before_action :set_tenant
 
+  def show
+    @order = Order.find(params[:id])
+  end
+
   def new
     ActsAsTenant.with_tenant(@shop) do
       @products = Product.in_stock
@@ -23,19 +27,15 @@ class OrdersController < ApplicationController
           # Re-render the shop product listing so users can adjust quantities
           @products = Product.in_stock
           @order = Order.new
-          render 'shops/show', status: :unprocessable_entity
+          render 'shops/show', status: :unprocessable_content
         end
       rescue InsufficientStockError => e
         flash.now[:alert] = e.message
         @products = Product.in_stock
         @order = Order.new
-        render 'shops/show', status: :unprocessable_entity
+        render 'shops/show', status: :unprocessable_content
       end
     end
-  end
-
-  def show
-    @order = Order.find(params[:id])
   end
 
   private

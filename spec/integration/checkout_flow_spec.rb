@@ -59,8 +59,8 @@ RSpec.describe 'Checkout Flow', type: :model do
           begin
             order_items = [{ product_id: product_a.id, quantity: 1 }]
             OrderCreationService.new(tenant_a, customer_a, order_items).call
-          rescue => e
-            exceptions << e.class.name + ': ' + e.message
+          rescue StandardError => e
+            exceptions << ("#{e.class.name}: #{e.message}")
           end
         end
       end

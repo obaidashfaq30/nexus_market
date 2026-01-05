@@ -23,9 +23,9 @@ class ApplicationController < ActionController::Base
     # Allow platform admins to bypass tenant restrictions
     return if current_user.admin?
 
-    unless ActsAsTenant.current_tenant && current_user.tenant_id == ActsAsTenant.current_tenant.id
-      redirect_to admin_tenants_path, alert: 'You are not authorized to access this tenant.'
-    end
+    return if ActsAsTenant.current_tenant && current_user.tenant_id == ActsAsTenant.current_tenant.id
+
+    redirect_to admin_tenants_path, alert: 'You are not authorized to access this tenant.'
   end
 
   def set_tenant

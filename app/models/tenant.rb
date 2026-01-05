@@ -20,7 +20,7 @@ class Tenant < ApplicationRecord
   # --------------------------------------------------------------------------------------------------------
   # SCOPES
   # --------------------------------------------------------------------------------------------------------
-  scope :with_in_stock_products, -> {
+  scope :with_in_stock_products, lambda {
     joins(:products)
       .merge(Product.in_stock)
       .distinct
