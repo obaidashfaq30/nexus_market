@@ -26,10 +26,21 @@
             <!-- Add to Order Form -->
             <%= form_with url: shop_orders_path(@shop), method: :post, local: true, class: "mt-auto" do |f| %>
               <div class="input-group mb-2">
-                <%= number_field_tag "order_items[][quantity]", 0, min: 0, class: "form-control", style: "max-width: 80px;" %>
+                <%= number_field_tag "order_items[][quantity]", 0,
+                      min: 1,
+                      max: product.stock,
+                      class: "form-control",
+                      style: "max-width: 80px;" %>
                 <%= hidden_field_tag "order_items[][product_id]", product.id %>
-                <button type="submit" class="btn btn-primary">Add to Order</button>
+                <button type="submit"
+                        class="btn btn-primary"
+                        <%= 'disabled' if product.stock.zero? %>>
+                  Add to Order
+                </button>
               </div>
+              <% if product.stock.zero? %>
+                <small class="text-danger">Out of stock</small>
+              <% end %>
             <% end %>
           </div>
         </div>

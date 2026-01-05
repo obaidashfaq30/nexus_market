@@ -20,11 +20,16 @@ class OrdersController < ApplicationController
         if @order.present?
           redirect_to shop_order_path(@shop, @order), notice: 'Order placed successfully!'
         else
-          render :new, status: :unprocessable_entity
+          # Re-render the shop product listing so users can adjust quantities
+          @products = Product.in_stock
+          @order = Order.new
+          render 'shops/show', status: :unprocessable_entity
         end
       rescue InsufficientStockError => e
         flash.now[:alert] = e.message
-        render :new, status: :unprocessable_entity
+        @products = Product.in_stock
+        @order = Order.new
+        render 'shops/show', status: :unprocessable_entity
       end
     end
   end

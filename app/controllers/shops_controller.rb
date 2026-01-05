@@ -3,6 +3,7 @@
 class ShopsController < ApplicationController
   def index
     @shops = Tenant.with_in_stock_products.includes(:products)
+    @products = Product.includes(:tenant).in_stock
   end
 
   def show

@@ -1,32 +1,69 @@
-<h1>Order #<%= @order.id %></h1>
-<p><strong>Tenant:</strong> <%= ActsAsTenant.current_tenant.name %></p>
-<p><strong>Customer:</strong> <%= @order.user.name %> (<%= @order.user.email %>)</p>
-<p><strong>Status:</strong> <%= @order.status.titleize %></p>
-<p><strong>Total:</strong> <%= number_to_currency(@order.total_cents / 100.0) %></p>
-<p><strong>Platform Fee:</strong> <%= number_to_currency(@platform_fee / 100.0) %></p>
+<div class="container py-4">
+  <!-- Header -->
+  <div class="mb-4 text-center">
+    <h1 class="h3 mb-2">Order #<%= @order.id %></h1>
+  </div>
 
-<h2>Order Items</h2>
+  <!-- Order Info -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <p><strong>Tenant:</strong> <%= ActsAsTenant.current_tenant.name %></p>
+      <p><strong>Customer:</strong> <%= @order.user.name %> (<%= @order.user.email %>)</p>
+      <p>
+        <strong>Status:</strong>
+        <span class="badge
+          <%= case @order.status
+              when 'pending' then 'bg-warning text-dark'
+              when 'paid' then 'bg-success'
+              when 'failed' then 'bg-danger'
+              else 'bg-secondary'
+              end %>">
+          <%= @order.status.titleize %>
+        </span>
+      </p>
+      <p><strong>Total:</strong> <%= number_to_currency(@order.total_cents / 100.0) %></p>
+      <p><strong>Platform Fee:</strong> <%= number_to_currency(@platform_fee / 100.0) %></p>
+    </div>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th>Subtotal</th>
-    </tr>
-  </thead>
+  <!-- Order Items -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Order Items</h5>
 
-  <tbody>
-    <% @order.order_items.each do |item| %>
-      <tr>
-        <td><%= item.product.name %></td>
-        <td><%= item.quantity %></td>
-        <td><%= number_to_currency(item.price) %></td>
-        <td><%= number_to_currency(item.price * item.quantity) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <% if @order.order_items.any? %>
+        <div class="table-responsive">
+          <table class="table table-striped align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @order.order_items.each do |item| %>
+                <tr>
+                  <td><%= item.product.name %></td>
+                  <td><%= item.quantity %></td>
+                  <td><%= number_to_currency(item.price) %></td>
+                  <td><%= number_to_currency(item.price * item.quantity) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <p class="text-muted mb-0">No items in this order.</p>
+      <% end %>
+    </div>
+  </div>
 
-<%= link_to 'Back to Orders', admin_tenant_orders_path(ActsAsTenant.current_tenant) %>
+  <!-- Back Button -->
+  <div class="text-end">
+    <%= link_to 'Back to Orders',
+        admin_tenant_orders_path(ActsAsTenant.current_tenant),
+        class: "btn btn-secondary" %>
+  </div>
+</div>
