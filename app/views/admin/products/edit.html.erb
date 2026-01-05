@@ -1,37 +1,85 @@
-<h1>Edit Product: <%= @product.name %></h1>
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      <!-- Card -->
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <!-- Header -->
+          <div class="mb-4">
+            <h1 class="h4 mb-1">
+              Edit Product
+            </h1>
+            <p class="text-muted mb-0">
+              Updating <strong><%= @product.name %></strong> for
+              <strong><%= ActsAsTenant.current_tenant.name %></strong>
+            </p>
+          </div>
 
-<%= form_with model: @product, url: admin_tenant_product_path(ActsAsTenant.current_tenant, @product), method: :patch, local: true do |form| %>
-  <% if @product.errors.any? %>
-    <div class="error-messages">
-      <ul>
-        <% @product.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+          <!-- Errors -->
+          <% if @product.errors.any? %>
+            <div class="alert alert-danger">
+              <h6 class="alert-heading mb-2">
+                <%= pluralize(@product.errors.count, "error") %> prevented this product from being saved:
+              </h6>
+              <ul class="mb-0">
+                <% @product.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <!-- Form -->
+          <%= form_with model: @product,
+            url: admin_tenant_product_path(ActsAsTenant.current_tenant, @product),
+            method: :patch,
+            local: true do |form| %>
+
+            <div class="mb-3">
+              <%= form.label :name, class: "form-label" %>
+              <%= form.text_field :name,
+                class: "form-control",
+                placeholder: "Product name" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :description, class: "form-label" %>
+              <%= form.text_area :description,
+                rows: 4,
+                class: "form-control",
+                placeholder: "Describe the product…" %>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <%= form.label :price, class: "form-label" %>
+                <div class="input-group">
+                  <span class="input-group-text">$</span>
+                  <%= form.number_field :price,
+                    step: 0.01,
+                    class: "form-control" %>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <%= form.label :stock, class: "form-label" %>
+                <%= form.number_field :stock,
+                  class: "form-control" %>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="d-flex justify-content-between align-items-center mt-4">
+              <%= link_to "Back to Products",
+                admin_tenant_products_path(ActsAsTenant.current_tenant),
+                class: "btn btn-outline-secondary" %>
+
+              <%= form.submit "Update Product",
+                class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: 'form-control' %>
   </div>
-
-  <div class="form-group">
-    <%= form.label :description %>
-    <%= form.text_area :description, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :price %>
-    <%= form.number_field :price, step: 0.01, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :stock %>
-    <%= form.number_field :stock, class: 'form-control' %>
-  </div>
-
-  <%= form.submit 'Update Product', class: 'btn btn-primary' %>
-<% end %>
-
-<%= link_to 'Back to Products', admin_tenant_products_path(ActsAsTenant.current_tenant), class: 'btn btn-secondary' %>
+</div>

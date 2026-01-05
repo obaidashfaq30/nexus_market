@@ -16,10 +16,17 @@
     <%= stylesheet_link_tag "application" %>
   </head>
 
-  <nav style="padding:10px; border-bottom:1px solid #ddd;">
+  <nav style="padding:10px; border-bottom:1px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
     <% if current_user %>
+    <div>
+      <% if current_user.customer? %>
+        <%= link_to "← Back to Shops", shops_path, class: "btn btn-secondary btn-sm" %>
+      <% else %>
+        <%= link_to "← Back to Tenants", admin_tenants_path, class: "btn btn-secondary btn-sm" %>
+      <% end %>
+    </div>
       <span>
-        Logged in as <strong><%= current_user.email %></strong>
+        Logged in as <strong><%= current_user.email %></strong> [<%= current_user.role %>]
       </span>
 
       <%= form_with url: logout_path, method: :delete, local: true, style: "display:inline;" do %>

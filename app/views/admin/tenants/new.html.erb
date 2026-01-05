@@ -1,24 +1,52 @@
-<h1>Create New Tenant</h1>
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+      <!-- Card -->
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <!-- Header -->
+          <div class="mb-4">
+            <h1 class="h4 mb-1">Create New Tenant</h1>
+            <p class="text-muted mb-0">
+              Add a new tenant to the platform
+            </p>
+          </div>
 
-<%= form_with model: @tenant, url: admin_tenants_path, local: true do |form| %>
-  <% if @tenant.errors.any? %>
-    <div>
-      <h3><%= pluralize(@tenant.errors.count, "error") %> prevented this tenant from being saved:</h3>
-      <ul>
-        <% @tenant.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+          <!-- Errors -->
+          <% if @tenant.errors.any? %>
+            <div class="alert alert-danger">
+              <h6 class="alert-heading mb-2">
+                <%= pluralize(@tenant.errors.count, "error") %> prevented this tenant from being saved:
+              </h6>
+              <ul class="mb-0">
+                <% @tenant.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <!-- Form -->
+          <%= form_with model: @tenant, url: admin_tenants_path, local: true do |form| %>
+            <div class="mb-3">
+              <%= form.label :name, class: "form-label" %>
+              <%= form.text_field :name,
+                class: "form-control",
+                placeholder: "Tenant name (e.g. Acme Inc.)" %>
+            </div>
+
+            <!-- Actions -->
+            <div class="d-flex justify-content-between align-items-center mt-4">
+              <%= link_to "Back",
+                admin_tenants_path,
+                class: "btn btn-outline-secondary" %>
+
+              <%= form.submit "Create Tenant",
+                class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
   </div>
-
-  <div style="margin-top: 15px;">
-    <%= form.submit "Create Tenant" %>
-    <%= link_to "Back", admin_tenants_path %>
-  </div>
-<% end %>
+</div>

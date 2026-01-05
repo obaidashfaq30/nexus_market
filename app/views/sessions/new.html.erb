@@ -1,15 +1,50 @@
-<h1 style="text-align:center;">Login</h1>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
 
-<%= form_with url: login_path, local: true do |f| %>
-  <div style="margin-bottom: 15px;">
-    <%= f.label :email %>
-    <%= f.email_field :email, style: "width:100%; padding:8px;" %>
+      <!-- Card -->
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <!-- Header -->
+          <h1 class="h4 text-center mb-4">Login</h1>
+
+          <!-- Flash / Error messages (optional) -->
+          <% if flash[:alert] %>
+            <div class="alert alert-danger">
+              <%= flash[:alert] %>
+            </div>
+          <% end %>
+
+          <!-- Form -->
+          <%= form_with url: login_path, local: true do |f| %>
+            <div class="mb-3">
+              <%= f.label :email, class: "form-label" %>
+              <%= f.email_field :email,
+                class: "form-control",
+                placeholder: "you@example.com" %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :password, class: "form-label" %>
+              <%= f.password_field :password,
+                class: "form-control",
+                placeholder: "Your password" %>
+            </div>
+
+            <div class="d-grid mt-4">
+              <%= f.submit "Login",
+                class: "btn btn-primary btn-lg" %>
+            </div>
+          <% end %>
+
+          <!-- Optional signup / forgot password -->
+          <div class="mt-3 text-center text-muted">
+            <small>
+              Don't have an account? <%= link_to "Sign up", "#" %>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div style="margin-bottom: 15px;">
-    <%= f.label :password %>
-    <%= f.password_field :password, style: "width:100%; padding:8px;" %>
-  </div>
-
-  <%= f.submit "Login", style: "padding:10px 20px; background:#007bff; color:white; border:none; border-radius:4px;" %>
-<% end %>
+</div>

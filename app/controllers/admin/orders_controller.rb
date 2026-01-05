@@ -2,6 +2,7 @@
 
 module Admin
   class OrdersController < ApplicationController
+    before_action :require_login
     before_action :set_tenant
 
     def index

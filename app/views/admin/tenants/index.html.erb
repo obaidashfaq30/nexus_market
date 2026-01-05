@@ -1,22 +1,49 @@
-<h1 style="text-align:center; margin-bottom: 20px;">Tenants</h1>
+<div class="container py-4">
+  <!-- Page Header -->
+  <div class="text-center mb-4">
+    <h1 class="h3">Tenants</h1>
+  </div>
 
-<div style="max-width: 500px; margin: 20px auto;">
-  <h2>Platform Metrics</h2>
-  <p>Total Revenue: <%= number_to_currency(@total_revenue) %></p>
-  <p>Platform Fees: <%= number_to_currency(@platform_fees) %></p>
-</div>
+  <!-- Platform Metrics -->
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Platform Metrics</h5>
+          <p class="mb-1"><strong>Total Revenue:</strong> <%= number_to_currency(@total_revenue) %></p>
+          <p class="mb-0"><strong>Platform Fees:</strong> <%= number_to_currency(@platform_fees) %></p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div style="text-align: center; margin-top: 10px;">
-  <%= link_to "Create New Tenant", new_admin_tenant_path,
-              style: "padding: 6px 12px; background-color: #007bff; color: white; text-decoration: none; border-radius: 3px;" %>
-</div>
+  <!-- Create Tenant Button -->
+  <div class="text-center mb-4">
+    <%= link_to "Create New Tenant",
+      new_admin_tenant_path,
+      class: "btn btn-primary" %>
+  </div>
 
-<ul style="max-width: 500px; margin: 0 auto; padding: 0; list-style: none;">
-  <% @tenants.each do |tenant| %>
-    <li style="display: flex; justify-content: space-between; padding: 8px 12px; border-bottom: 1px solid #ddd;">
-      <span><%= tenant.name %></span>
-      <%= link_to "View", admin_tenant_products_path(tenant),
-                  style: "padding: 4px 8px; background-color: #28a745; color: white; text-decoration: none; border-radius: 3px;" %>
-    </li>
+  <!-- Tenants List -->
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <ul class="list-group shadow-sm">
+        <% @tenants.each do |tenant| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span><%= tenant.name %></span>
+            <%= link_to "View",
+              admin_tenant_products_path(tenant),
+              class: "btn btn-sm btn-success" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <% if @tenants.empty? %>
+    <div class="text-center text-muted py-5">
+      <p>No tenants yet. Click “Create New Tenant” to add one.</p>
+    </div>
   <% end %>
-</ul>
+</div>
