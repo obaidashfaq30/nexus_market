@@ -21,7 +21,7 @@ group :development, :test do
   gem 'annotate', '~> 3.2.0'
   gem 'brakeman', require: false
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
-  gem 'dotenv-rails', '~> 2.1'
+  gem 'dotenv-rails', '~> 3.2'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry'
